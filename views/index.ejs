@@ -10,6 +10,11 @@
 <body>
   <h2>All Hotels details</h2>
   <ul>
+    <br />
+    <form method="GET" action="/listing/new">
+      <button>New Hotels</button>
+    </form>
+    <br />
     <% for(let listing of data){ %>
       <li>
         <a href="/listing/<%=listing._id%>">
