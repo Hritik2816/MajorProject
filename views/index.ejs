@@ -1,29 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
+<% layout("/layouts/boilerplate.ejs") %>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home Page</title>
-</head>
-
-<body>
-  <h2>All Hotels details</h2>
-  <ul>
-    <br />
-    <form method="GET" action="/listing/new">
-      <button>New Hotels</button>
-    </form>
-    <br />
-    <% for(let listing of data){ %>
-      <li>
-        <a href="/listing/<%=listing._id%>">
-          <%= listing.title%>
-        </a>
-      </li>
-      <% } %>
-  </ul>
-</body>
+  <body>
+    <h3>All Hotels details</h3>
+    <ul>
+      <br />
+      <!-- <form method="GET" action="/listing/new">
+        <button>New Hotels</button>
+      </form> -->
+      <br />
+      <% for(let listing of data){ %>
+        <li>
+          <a href="/listing/<%=listing._id%>">
+            <%= listing.title%>
+          </a>
+        </li>
+        <li>
+          <a href="/listing/<%=listing._id%>">
+            <%= listing.title%>
+          </a>
+        </li>
+        <% } %>
+    </ul>
+  </body>
 
 
-</html>
+  </html>
