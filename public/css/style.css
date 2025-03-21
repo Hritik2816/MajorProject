@@ -11,3 +11,22 @@
 .nav-link{
   color: #222222 !important;
 }
+
+.ft_container{
+  width: 100%;
+  background-color: #ebebeb;
+  color: black;
+
+}
+
+.ft_text{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* .ft_content{
+  display: flex;
+  justify-content: first baseline;
+  align-items: first baseline;
+} */
