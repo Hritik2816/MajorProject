@@ -7,7 +7,7 @@
         <%= listing.title %>
       </li>
       <li>
-        <%= listing.description %>
+        <img src="<%= listing.image.url %>" alt="Listing_image">
       </li>
       <li>
         &#8377;<%= listing.price.toLocaleString("en-IN") %>
@@ -17,6 +17,9 @@
       </li>
       <li>
         <%= listing.country %>
+      </li>
+      <li>
+        <%= listing.description %>
       </li>
       <br />
       <form method="GET" action="/listing/<%=listing._id%>/edit">
