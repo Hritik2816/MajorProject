@@ -5,6 +5,7 @@ const Listing = require('./models/listing.js')
 const path = require('path')
 const methodOverride = require('method-override')
 const ejsMate = require('ejs-mate')
+const ExpressError = require('./utils/ExpressError.js')
 
 
 app.set('view engine', "ejs");
@@ -51,11 +52,15 @@ app.get('/listing/:id', async (req, res) => {
 
 // create route
 
-app.post('/listing', async (req, res) => {
+app.post('/listing', async (req, res, next) => {
   // let {title, description, price, location, country} = req.body
-  let newListing = new Listing(req.body.listing);
-  await newListing.save();
-  res.redirect("/listing")
+  try {
+    let newListing = new Listing(req.body.listing);
+    await newListing.save();
+    res.redirect("/listing")
+  } catch (err) {
+    next(err)
+  }
 })
 
 // Edit route
@@ -95,6 +100,18 @@ app.delete('/listing/:id', async (req, res) => {
 //   console.log(sampleListing)
 //   res.send("Listing created")
 // })
+
+app.all("*", (req, res, next) => {
+  next(new ExpressError(404, "Page not found"))
+})
+
+
+app.use((err, req, res, next) => {
+  let { statusCode = 500, message = "Something went wrong" } = err;
+  res.render("error.ejs")
+  res.status(statusCode).send(message)
+})
+
 
 app.listen(8080, () => {
   console.log('Server is running on port 8080');
