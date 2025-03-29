@@ -1,7 +1,18 @@
-<% layout(/layouts/boilerplate) %>
+<!DOCTYPE html>
+<html lang="en">
 
-  <div class="row">
-    <div class="alert alert-danger col-6 offset-3" role="alert">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Error</title>
+</head>
 
-    </div>
-  </div>
+<body>
+  <h1>Error</h1>
+  <p>Status Code: <%= statusCode || 500 %>
+  </p>
+  <p>Message: <%= message || "Something went wrong" %>
+  </p>
+</body>
+
+</html>
