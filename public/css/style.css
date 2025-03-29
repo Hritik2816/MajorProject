@@ -30,7 +30,7 @@ body{
   align-items: center;
 }
 
-.card{
+.listing-card{
   border: none !important;
   margin: 2rem;
 }
@@ -62,13 +62,4 @@ body{
 
 .btn{
   margin: 2px;
-}
-
-.review_container{
-  background-color: burlywood;
-  color: black;
-}
-.review_container p{
-  display: flex;
-  justify-content: center;
 }
