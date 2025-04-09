@@ -5,8 +5,11 @@ const path = require('path')
 const methodOverride = require('method-override')
 const ejsMate = require('ejs-mate')
 const ExpressError = require('./utils/ExpressError.js')
-const listing = require('./routes/listing.js')
-const review = require('./routes/review.js')
+
+const listingRouter = require('./routes/listing.js')
+const reviewRouter = require('./routes/review.js')
+const userRouter = require('./routes/user.js')
+
 const session = require('express-session')
 const flash = require('connect-flash')
 const passport = require('passport')
@@ -70,8 +73,9 @@ app.get("/demoUser", async (Req, res) => {
   res.send(registerUser)
 })
 
-app.use("/listing", listing)
-app.use("/listing/:id/review", review);
+app.use("/listing", listingRouter)
+app.use("/listing/:id/review", reviewRouter);
+app.use("/", userRouter)
 
 
 //Error handle
