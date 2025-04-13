@@ -9,6 +9,9 @@
       </div>
       <div class="col-md-8">
         <div class="card-body">
+          <p class="card-text">Owned by<i>
+              <%= listing.owner.username %>
+            </i></p>
           <h5 class="card-title">
             <%= listing.title %>
           </h5>
@@ -28,6 +31,7 @@
       </div>
     </div>
     <br />
+
     <div class="btns">
       <form method="GET" action="/listing/<%=listing._id%>/edit">
         <button class="btn btn-dark md-4">Edit</button>

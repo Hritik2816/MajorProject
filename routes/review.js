@@ -2,40 +2,32 @@ const express = require('express')
 const router = express.Router({ mergeParams: true })
 const Review = require('../models/review.js')
 const wrapAsync = require('../utils/wrapAsync.js');
-const ExpressError = require('../utils/ExpressError.js')
 const Listing = require('../models/listing.js')
-const { reviewSchema } = require('../schema.js');
-
-
-const validateReview = (req, res, next) => {
-  const { error } = reviewSchema.validate(req.body);
-  if (error) {
-    const errMsg = error.details.map((el) => el.message).join(",");
-    throw new ExpressError(400, errMsg);
-  } else {
-    next();
-  }
-};
-
+const { validateReview } = require('../middleware')
 
 // Reviews route
 //Post review route 
 
 router.post('/', validateReview, wrapAsync(async (req, res) => {
-  let listing = await Listing.findById(req.params.id)
-  let newReview = new Review(req.body.review)
+  let listing = await Listing.findById(req.params.id);
+  if (!listing) {
+    req.flash('error', 'Listing not found');
+    return res.redirect('/listing');
+  }
 
-  listing.reviews.push(newReview)
+  let newReview = new Review(req.body.review);
+  if (!newReview || !newReview.content || !newReview.rating) {
+    req.flash('error', 'Invalid review data');
+    return res.redirect(`/listing/${listing._id}`);
+  }
 
-  await newReview.save()
-  await listing.save()
+  listing.reviews.push(newReview);
+  await newReview.save();
+  await listing.save();
 
-  // console.log("New review save");
-  // res.send("New review send")
-
-  res.redirect(`/listing/${listing._id}`)
+  req.flash('success', 'Review added successfully');
+  res.redirect(`/listing/${listing._id}`);
 }))
-
 
 // delete review route 
 router.delete('/:reviewId', wrapAsync(async (req, res) => {
