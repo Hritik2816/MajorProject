@@ -6,65 +6,33 @@ const Review = require('../models/review.js');
 const { isLoggedIn, isOwner, validateListing, validateReview } = require('../middleware.js')
 
 
-router.get('/', async (req, res) => {
-  const data = await Listing.find({})
-  console.log(data)
-  res.render('index.ejs', { data })
-})
+const listingController = require("../controllers/listing.js")
+
+router.get('/', wrapAsync(listingController.index));
 
 // new route
 
-router.get('/new', isLoggedIn, (req, res) => {
-  res.render("create.ejs")
-})
+router.get('/new', isLoggedIn, listingController.renderNewForm)
 
 // show route
 
-router.get('/:id', async (req, res) => {
-  let { id } = req.params;
-  const listing = await Listing.findById(id).populate({
-    path: "reviews", populate: {
-      path: "author"
-    }
-  }).populate("owner");
-  res.render('show.ejs', { listing })
-})
+router.get('/:id', wrapAsync(listingController.show))
 
 // create route
 
-router.post('/', isLoggedIn, validateListing, wrapAsync(async (req, res, next) => {
-  // let {title, description, price, location, country} = req.body
-  const newListing = new Listing(req.body.listing);
-  newListing.owner = req.user._id
-  await newListing.save();
-  req.flash("success", "New Listing Created")
-  res.redirect("/listing")
-  next(err)
-}))
+router.post('/', isLoggedIn, validateListing, wrapAsync(listingController.create))
 
 // Edit route
 
-router.get('/:id/edit', isLoggedIn, isOwner, async (req, res) => {
-  let { id } = req.params;
-  let listing = await Listing.findById(id);
-  res.render('edit.ejs', { listing });
-});
+router.get('/:id/edit', isLoggedIn, isOwner, wrapAsync(listingController.edit));
 
 // Update route
 
-router.put('/:id', isLoggedIn, isOwner, async (req, res) => {
-  let { id } = req.params;
-  await Listing.findByIdAndUpdate(id, { ...req.body.listing })
-  res.redirect('/listing')
-})
+router.put('/:id', isLoggedIn, isOwner, wrapAsync(listingController.update))
 
 // Delete route 
 
-router.delete('/:id', isLoggedIn, isOwner, async (req, res) => {
-  let { id } = req.params;
-  await Listing.findByIdAndDelete(id);
-  res.redirect('/listing')
-})
+router.delete('/:id', isLoggedIn, isOwner, wrapAsync(listingController.delete))
 
 router.get('/:id/reviews/:reviewId', async (req, res, next) => {
   const { id, reviewId } = req.params;
