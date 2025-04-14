@@ -2,7 +2,8 @@ const express = require('express')
 const router = express.Router({ mergeParams: true })
 const wrapAsync = require('../utils/wrapAsync.js');
 const Listing = require('../models/listing.js')
-const { isLoggedIn, isOwner, validateListing } = require('../middleware.js')
+const Review = require('../models/review.js');
+const { isLoggedIn, isOwner, validateListing, validateReview } = require('../middleware.js')
 
 
 router.get('/', async (req, res) => {
@@ -21,7 +22,11 @@ router.get('/new', isLoggedIn, (req, res) => {
 
 router.get('/:id', async (req, res) => {
   let { id } = req.params;
-  const listing = await Listing.findById(id).populate("reviews").populate("owner");
+  const listing = await Listing.findById(id).populate({
+    path: "reviews", populate: {
+      path: "author"
+    }
+  }).populate("owner");
   res.render('show.ejs', { listing })
 })
 
@@ -71,5 +76,23 @@ router.get('/:id/reviews/:reviewId', async (req, res, next) => {
   }
   res.render('review.ejs', { review });
 });
+
+router.post('/:id/reviews', isLoggedIn, validateReview, wrapAsync(async (req, res) => {
+  const { id } = req.params;
+  const listing = await Listing.findById(id);
+  if (!listing) {
+    req.flash('error', 'Listing not found');
+    return res.redirect('/listing');
+  }
+
+  const review = new Review(req.body.review);
+  review.author = req.user._id;
+  listing.reviews.push(review);
+  await review.save();
+  await listing.save();
+
+  req.flash('success', 'Review added successfully');
+  res.redirect(`/listing/${listing._id}`);
+}));
 
 module.exports = router;
