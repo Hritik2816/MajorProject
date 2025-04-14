@@ -8,31 +8,47 @@ const { isLoggedIn, isOwner, validateListing, validateReview } = require('../mid
 
 const listingController = require("../controllers/listing.js")
 
-router.get('/', wrapAsync(listingController.index));
+
+router.route("/")
+  .get(wrapAsync(listingController.index))
+  .post(isLoggedIn, validateListing, wrapAsync(listingController.create))
+
+
 
 // new route
 
 router.get('/new', isLoggedIn, listingController.renderNewForm)
 
-// show route
-
-router.get('/:id', wrapAsync(listingController.show))
-
-// create route
-
-router.post('/', isLoggedIn, validateListing, wrapAsync(listingController.create))
-
 // Edit route
 
 router.get('/:id/edit', isLoggedIn, isOwner, wrapAsync(listingController.edit));
 
+
+router.route('/:id')
+  .put(isLoggedIn, isOwner, wrapAsync(listingController.update))
+  .get(wrapAsync(listingController.show))
+  .delete(isLoggedIn, isOwner, wrapAsync(listingController.delete))
+
+
+
+// router.get('/', wrapAsync(listingController.index));
+
+// show route
+
+// router.get('/:id', wrapAsync(listingController.show))
+
+// create route
+
+// router.post('/', isLoggedIn, validateListing, wrapAsync(listingController.create))
+
+
 // Update route
 
-router.put('/:id', isLoggedIn, isOwner, wrapAsync(listingController.update))
+// router.put('/:id', isLoggedIn, isOwner, wrapAsync(listingController.update))
 
 // Delete route 
 
-router.delete('/:id', isLoggedIn, isOwner, wrapAsync(listingController.delete))
+// router.delete('/:id', isLoggedIn, isOwner, wrapAsync(listingController.delete))
 
 router.get('/:id/reviews/:reviewId', async (req, res, next) => {
   const { id, reviewId } = req.params;
