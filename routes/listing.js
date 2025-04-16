@@ -6,11 +6,12 @@ const Review = require('../models/review.js');
 const { isLoggedIn, isOwner, validateListing, validateReview } = require('../middleware.js')
 const listingController = require("../controllers/listing.js")
 const multer = require("multer")
-const upload = multer({ dest: "uploads/" })
+const { cloudinary, storage } = require('../cloudConfig.js');
+const upload = multer({ storage }); // Use the properly configured storage
 
 router.route("/")
   .get(wrapAsync(listingController.index))
-  .post(isLoggedIn, validateListing, wrapAsync(listingController.create))
+  .post(isLoggedIn, upload.single("listing[image]"), validateListing, wrapAsync(listingController.create))
 
 
 
