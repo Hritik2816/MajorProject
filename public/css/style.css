@@ -1,65 +1,127 @@
-body{
+body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
 
-.container{
+.container {
   flex: 1;
 }
 
-.navbar{
-  height : 5rem;
+.navbar {
+  height: 5rem;
   background-color: white;
 }
 
-.nav-link{
+.nav-link {
   color: #222222 !important;
 }
 
-.ft_container{
+.ft_container {
   width: 100%;
   background-color: #ebebeb;
   color: black;
 
 }
 
-.ft_text{
+.navbar-brand {
+  color: chartreuse !important;
+}
+
+.navbar-brand .fa-airbnb {
+  font-size: 3rem;
+  /* Increase this value as needed */
+}
+
+.ft_text {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.listing-card{
+.listing-card {
   border: none !important;
   margin: 2rem;
 }
 
-.card-img-top{
+.card-img-top {
   border-radius: 1rem !important;
   width: 100% !important;
   object-fit: cover !important;
 }
 
-.card-body{
+.card-body {
   padding: 0;
 }
 
-.listing_dec{
+.listing_dec {
   text-decoration: none;
   color: black;
-  
+
 }
 
-.card-img-top:hover{
+.card-img-top:hover {
   opacity: 0.8;
   border-color: white;
 }
 
-.btns{
+.btns {
   display: flex;
 }
 
-.btn{
+.btn {
   margin: 2px;
+}
+
+
+/* map */
+
+#map {
+  height: 400px;
+  width: 80vh;
+}
+
+#filters {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.filter {
+  text-align: center;
+  margin-right: 2rem;
+  margin-top: 1rem;
+  opacity: 0.8;
+  color: #222222 !important;
+
+}
+
+.filter:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.filter p {
+  font-size: 0.8rem;
+}
+
+.btn-search {
+  background-color: chartreuse;
+  border: chartreuse;
+  border-radius: 25px;
+  padding: 0 1rem 0 1rem;
+}
+
+.btn-search :hover {
+  background-color: chartreuse;
+  color: white;
+}
+
+.btn-search i {
+  display: inline;
+  margin-right: 0.8rem;
+}
+
+.form-control {
+  border-radius: 25px !important;
+  padding: 0.5rem 2rem 0.5rem 3rem !important;
 }

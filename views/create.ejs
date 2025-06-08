@@ -43,11 +43,30 @@
           <div class="invalid-feedback">Country should be enter</div>
         </div>
         <br />
-        <div>
-          <label for="location" class="form-label">Location</label>
-          <input name="listing[location]" type="text" placeholder="Enter your location name" class="form-control"
-            required>
-          <div class="invalid-feedback">Location should be enter</div>
+
+        <div class="row">
+          <div class="col-md-8">
+            <label for="location" class="form-label">Location</label>
+            <input name="listing[location]" type="text" placeholder="Enter your location name" class="form-control"
+              required>
+            <div class="invalid-feedback">Location should be enter</div>
+          </div>
+
+          <div class="col-md-4">
+            <label for="categories">Category:</label>
+            <select name="listing[categories]" id="categories" required>
+              <option value="">Select a category</option>
+              <option value="Trending">Trending</option>
+              <option value="Rooms">Rooms</option>
+              <option value="Iconic Cities">Iconic Cities</option>
+              <option value="Mountain">Mountain</option>
+              <option value="Castle">Castle</option>
+              <option value="Amazing Pool">Amazing Pool</option>
+              <option value="Camping">Camping</option>
+              <option value="Farms">Farms</option>
+              <option value="Arctic">Arctic</option>
+            </select>
+          </div>
         </div>
         <br />
         <button class="btn btn-dark">Submit</button>
