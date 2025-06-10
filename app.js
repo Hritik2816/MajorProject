@@ -70,7 +70,11 @@ async function main() {
 //   res.send('Welcome')
 // })
 
-app.use(session(sessionOptions));
+app.use(session({
+  secret: process.env.SECRET, // or a hardcoded string, but env is safer
+  resave: false,
+  saveUninitialized: false
+}));
 app.use(flash())
 
 app.use(passport.initialize())
