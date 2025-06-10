@@ -1,13 +1,14 @@
 const mongoose = require('mongoose')
 const Listing = require('../models/listing.js')
 const initData = require('./data.js')
+const dbUrl = process.env.ATLASDB_URL;
 
 main()
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.log(err));
 
 async function main() {
-  await mongoose.connect('mongodb://127.0.0.1:27017/wanderlust');
+  await mongoose.connect(dbUrl);
 }
 
 const init = async () => {
