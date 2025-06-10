@@ -66,9 +66,9 @@ async function main() {
 }
 
 
-// app.get('/', (req, res) => {
-//   res.send('Welcome')
-// })
+app.get("/", (req, res) => {
+  res.redirect("/listing");
+});
 
 app.use(session(sessionOptions));
 app.use(flash())
