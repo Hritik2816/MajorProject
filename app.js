@@ -35,17 +35,17 @@ store.on("error", () => {
   console.log("SESSION STORE ERROR", err)
 })
 
-// const sessionOptions = {
-//   store,
-//   secret: process.env.SECRET,
-//   resave: false,
-//   saveUninitialized: false,
-//   cookie: {
-//     httpOnly: true,
-//     expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // 1 week
-//     maxAge: 1000 * 60 * 60 * 24 * 7
-//   }
-// };
+const sessionOptions = {
+  store,
+  secret: process.env.SECRET,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    httpOnly: true,
+    expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // 1 week
+    maxAge: 1000 * 60 * 60 * 24 * 7
+  }
+};
 
 
 
@@ -70,17 +70,7 @@ async function main() {
 //   res.send('Welcome')
 // })
 
-app.use(session({
-  store,
-  secret: process.env.SECRET,
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-    httpOnly: true,
-    expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // 1 week
-    maxAge: 1000 * 60 * 60 * 24 * 7
-  }
-}));
+app.use(session(sessionOptions));
 app.use(flash())
 
 app.use(passport.initialize())
