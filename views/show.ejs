@@ -17,7 +17,7 @@
       <div class="col-md-8">
         <div class="card-body">
           <p class="card-text">Owned by <i>
-              <%= listing.owner.username %>
+              <%=listing.owner ? listing.owner.username : "Unknown" %>
             </i></p>
           <h5 class="card-title">
             <%= listing.title %>
@@ -35,7 +35,7 @@
     </div>
     <br />
 
-    <% if(currUser && listing.owner._id.equals(currUser._id)) { %>
+    <% if (currUser && listing.owner && listing.owner._id && listing.owner._id.equals(currUser._id)) { %>
       <div class="btns">
         <form method="GET" action="/listing/<%=listing._id%>/edit">
           <button class="btn btn-dark md-4">Edit</button>

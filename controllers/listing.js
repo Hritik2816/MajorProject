@@ -19,9 +19,10 @@ module.exports.renderNewForm = (req, res) => {
 
 module.exports.show = async (req, res) => {
   let { id } = req.params;
-  const listing = await Listing.findById(id)
-    .populate({ path: "reviews", populate: { path: "author" } })
-    .populate("owner");
+  const listing = await Listing.findById(id).populate("owner").populate({
+    path: 'reviews',
+    populate: { path: 'author' }
+  });
 
   // Safe check for geometry and coordinates
   let coordinates = (listing.geometry && listing.geometry.coordinates && listing.geometry.coordinates.length)
