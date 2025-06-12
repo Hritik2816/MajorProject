@@ -1,18 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Error</title>
-</head>
-
-<body>
-  <h1>Error</h1>
-  <p>Status Code: <%= statusCode || 500 %>
-  </p>
-  <p>Message: <%= message || "Something went wrong" %>
-  </p>
-</body>
-
-</html>
+<!-- error.ejs -->
+<% layout("layouts/boilerplate.ejs") %>
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-6">
+        <div class="card listing-card p-5 text-center">
+          <h1 style="font-size:5rem; color:var(--primary)">😢</h1>
+          <h2 class="mb-3" style="color:var(--primary)">Oops! <%= err.status || 500 %> Error</h2>
+          <p class="mb-4" style="color:#f5f5f5">
+            <%= err.message || "Something went wrong." %>
+          </p>
+          <a href="/listing" class="btn btn-dark px-4 py-2">Back to Home</a>
+        </div>
+      </div>
+    </div>
+  </div>

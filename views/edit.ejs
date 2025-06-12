@@ -53,6 +53,27 @@
           </div>
 
           <br />
+          <div class="mb-3">
+            <label for="categories" class="form-label">Category</label>
+            <select name="listing[categories]" id="categories" class="form-control" required>
+              <option value="">Select a category</option>
+              <option value="Farms" <%=listing.categories==='Farms' ? 'selected' : '' %>>Farms</option>
+              <option value="Arctic" <%=listing.categories==='Arctic' ? 'selected' : '' %>>Arctic</option>
+              <option value="Iconic Cities" <%=listing.categories==='Iconic Cities' ? 'selected' : '' %>>Iconic Cities
+              </option>
+              <option value="Trending" <%=listing.categories==='Trending' ? 'selected' : '' %>>Trending</option>
+              <option value="Rooms" <%=listing.categories==='Rooms' ? 'selected' : '' %>>Rooms</option>
+              <option value="Mountain" <%=listing.categories==='Mountain' ? 'selected' : '' %>>Mountain</option>
+              <option value="Castle" <%=listing.categories==='Castle' ? 'selected' : '' %>>Castle</option>
+              <option value="Amazing Pool" <%=listing.categories==='Amazing Pool' ? 'selected' : '' %>>Amazing Pool
+              </option>
+              <option value="Camping" <%=listing.categories==='Camping' ? 'selected' : '' %>>Camping</option>
+              <!-- Add more categories as needed -->
+            </select>
+            <div class="invalid-feedback">Category is required</div>
+          </div>
+
+          <br />
           <button class="btn btn-dark">Update</button>
       </form>
       <br />

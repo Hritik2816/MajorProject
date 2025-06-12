@@ -60,18 +60,30 @@ module.exports.edit = async (req, res) => {
   res.render('edit.ejs', { listing });
 }
 
-module.exports.update = async (req, res) => {
-  let { id } = req.params;
-  let listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing })
-  if (req.file !== "undefined") {
-    let url = req.file.path;
-    let filename = req.file.filename
-    listing.image = { url, filename };
-    await listing.save()
+module.exports.update = async (req, res, next) => {
+  const { id } = req.params;
+  const listing = await Listing.findById(id);
+
+  // Update fields
+  listing.title = req.body.listing.title;
+  listing.description = req.body.listing.description;
+  listing.price = req.body.listing.price;
+  listing.country = req.body.listing.country;
+  listing.location = req.body.listing.location;
+  listing.categories = req.body.listing.categories;
+
+  // Only update image if a new one was uploaded
+  if (req.file) {
+    listing.image = {
+      url: req.file.path,
+      filename: req.file.filename
+    };
   }
-  req.flash("success", "Listing update");
-  res.redirect('/listing')
-}
+
+  await listing.save();
+  req.flash('success', 'Listing updated!');
+  res.redirect(`/listing/${listing._id}`);
+};
 
 module.exports.delete = async (req, res) => {
   let { id } = req.params;

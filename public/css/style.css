@@ -1,4 +1,3 @@
-/* Import a modern font */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
 :root {
@@ -24,19 +23,19 @@ body {
   padding: 2rem 0;
 }
 
+/* Navbar */
 .navbar {
   background: var(--light-gray) !important;
   border-bottom: 2px solid var(--primary);
   box-shadow: 0 2px 8px rgba(127, 255, 0, 0.1);
-  height: 5rem;
+  height: 4rem;
   display: flex;
   align-items: center;
 }
 
-
 .navbar-brand {
   color: var(--primary) !important;
-  font-weight: 700;
+  font-weight: 500;
   font-size: 2.2rem;
   letter-spacing: 2px;
   display: flex;
@@ -65,6 +64,19 @@ body {
   color: var(--white) !important;
 }
 
+.navbar-nav {
+  flex-direction: row !important;
+  align-items: center !important;
+}
+
+
+.d-flex {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem;
+}
+
+/* Footer */
 .ft_container {
   width: 100%;
   background: var(--primary);
@@ -82,22 +94,26 @@ body {
   align-items: center;
 }
 
+/* Modern Card/Listings */
 .listing-card,
 .card {
   background: var(--black);
   color: var(--primary);
-  border-radius: 1.2rem;
-  box-shadow: 0 4px 24px rgba(127, 255, 0, 0.08);
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 32px rgba(127, 255, 0, 0.10);
   border: 2px solid var(--primary);
-  margin: 2rem 0;
+  padding: 0;
   transition: transform 0.2s, box-shadow 0.2s;
   animation: fadeInUp 0.7s;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .card:hover,
 .listing-card:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 8px 32px rgba(127, 255, 0, 0.18);
+  transform: translateY(-8px) scale(1.025);
+  box-shadow: 0 16px 48px rgba(127, 255, 0, 0.18);
 }
 
 .card-title,
@@ -105,47 +121,89 @@ body {
   color: var(--primary);
 }
 
+/* Listing Image with Price Badge */
+.listing-image-wrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.5rem 1.5rem 0 0;
+  box-shadow: 0 8px 32px rgba(127, 255, 0, 0.12);
+  background: #222;
+}
+
 .card-img-top {
-  border-radius: 1rem !important;
+  border-radius: 1.5rem 1.5rem 0 0 !important;
   width: 100% !important;
+  height: 18rem !important;
   object-fit: cover !important;
-  border: 2px solid var(--primary);
-  transition: border 0.3s, opacity 0.3s;
+  transition: transform 0.3s, filter 0.3s;
+  filter: brightness(0.97) contrast(1.08) saturate(1.1);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.10);
 }
 
 .card-img-top:hover {
-  opacity: 0.85;
-  border-color: var(--white);
+  transform: scale(1.04);
+  filter: brightness(1.05) contrast(1.15) saturate(1.2);
 }
 
+.price-badge {
+  position: absolute;
+  bottom: 1.2rem;
+  right: 1.2rem;
+  background: var(--primary);
+  color: var(--black);
+  padding: 0.7rem 2rem;
+  border-radius: 2rem;
+  font-weight: 800;
+  font-size: 1.15rem;
+  box-shadow: 0 4px 16px rgba(127, 255, 0, 0.18);
+  border: 2px solid var(--black);
+  letter-spacing: 1px;
+  z-index: 2;
+  animation: fadeInDown 0.7s;
+}
+
+/* Card Body */
+.card-body {
+  padding: 1.5rem 2rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* Buttons */
 .btn,
 .btn-dark {
   background: var(--primary);
   color: var(--black);
   border: none;
   border-radius: 25px;
-  padding: 0.5rem 1.5rem;
+  padding: 0.7rem 2.5rem;
   font-weight: 700;
+  font-size: 1.1rem;
   transition: background 0.3s, color 0.3s, box-shadow 0.3s;
   box-shadow: 0 2px 8px rgba(127, 255, 0, 0.1);
-  margin: 2px;
+  margin-top: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .btn-search {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  /* space between icon and text */
+  gap: 0.4rem;
   background: var(--primary);
   color: var(--black);
   border: none;
   border-radius: 25px;
-  padding: 0.5rem 1.5rem;
+  padding: 0.5rem 1.2rem;
   font-weight: 700;
-  transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+  font-size: 1rem;
+  height: 40px;
+  /* Match input height */
+  line-height: 1;
   box-shadow: 0 2px 8px rgba(127, 255, 0, 0.1);
-  margin: 2px;
+  transition: background 0.3s, color 0.3s, box-shadow 0.3s;
 }
 
 .btn:hover,
@@ -157,20 +215,41 @@ body {
   box-shadow: 0 4px 16px rgba(127, 255, 0, 0.2);
 }
 
-.form-control {
+/* Forms */
+.form-label {
+  color: var(--primary);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.form-control,
+select.form-control,
+select {
   background: var(--black);
   color: var(--primary);
   border: 2px solid var(--primary);
   border-radius: 25px !important;
-  padding: 0.5rem 2rem 0.5rem 1rem !important;
+  padding: 0.7rem 1.5rem;
   transition: border 0.3s, box-shadow 0.3s;
 }
 
-.form-control:focus {
-  border: 2px solid var(--white);
-  box-shadow: 0 0 8px var(--primary);
+.form-control:focus,
+select:focus {
+  border: 2px solid #7fff00;
+  box-shadow: 0 0 8px #7fff00;
   background: var(--black);
   color: var(--primary);
+}
+
+option {
+  background: #222;
+  color: var(--primary);
+}
+
+.invalid-feedback {
+  color: #ff4d4f;
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
 }
 
 #map {
@@ -183,7 +262,6 @@ body {
 }
 
 h1,
-h2,
 h3,
 h4,
 h5,
@@ -191,6 +269,14 @@ h6 {
   color: var(--primary);
   font-weight: 700;
   letter-spacing: 1px;
+}
+
+h2 {
+  color: var(--primary);
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 2rem;
+  text-align: center;
 }
 
 a {
@@ -222,19 +308,7 @@ a:hover {
   box-shadow: 0 8px 32px rgba(127, 255, 0, 0.12);
 }
 
-.price-badge {
-  position: absolute;
-  bottom: 1rem;
-  right: 1rem;
-  background: var(--primary);
-  color: var(--black);
-  padding: 0.5rem 1.2rem;
-  border-radius: 999px;
-  font-weight: 700;
-  font-size: 1.1rem;
-  box-shadow: 0 2px 8px rgba(127, 255, 0, 0.18);
-  animation: fadeInDown 0.7s;
-}
+
 
 /* Listing details card */
 .listing-details {
@@ -248,16 +322,6 @@ a:hover {
 
 /* Review card */
 .review-card {
-  background: var(--black);
-  color: #f5f5f5 !important;
-  border-radius: 1.2rem;
-  border: 2px solid var(--primary);
-  box-shadow: 0 2px 8px rgba(127, 255, 0, 0.08);
-  margin-bottom: 1rem;
-  animation: fadeInUp 0.7s;
-}
-
-.review-form {
   background: var(--black);
   color: #f5f5f5 !important;
   border-radius: 1.2rem;
@@ -298,7 +362,6 @@ a:hover {
 .map-section {
   background: var(--black);
   color: #f5f5f5 !important;
-  ;
   border-radius: 1.5rem;
   border: 2px solid var(--primary);
   box-shadow: 0 4px 24px rgba(127, 255, 0, 0.08);
@@ -335,13 +398,12 @@ to {
   transform: translateY(0);
 }
 
-
-/* Airbnb-style pill filters */
 #filters {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
   margin-bottom: 2rem;
+  justify-content: center;
 }
 
 .filter {
@@ -349,7 +411,7 @@ to {
   color: var(--primary) !important;
   border: 2px solid var(--primary);
   border-radius: 999px;
-  padding: 0.5rem 1.5rem;
+  padding: 0.4rem 0.8rem;
   font-weight: 500;
   font-size: 1rem;
   opacity: 0.85;
@@ -357,6 +419,9 @@ to {
   cursor: pointer;
   margin-top: 1rem;
   text-align: center;
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
 }
 
 .filter:hover,
@@ -368,9 +433,10 @@ to {
 }
 
 .filter p {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   margin: 0;
 }
+
 
 /* Button group for edit/delete */
 .btns {
@@ -380,14 +446,21 @@ to {
 }
 
 /* Animations for cards and listings */
-.card,
-.listing-card {
-  animation: fadeInUp 0.7s;
-}
+
 
 .listing-image-wrapper {
   position: relative;
   overflow: hidden;
   border-radius: 1.5rem;
   box-shadow: 0 8px 32px rgba(127, 255, 0, 0.12);
+}
+
+
+select.form-control,
+select {
+  background: var(--black);
+  color: var(--primary);
+  border-radius: 25px;
+  border: 2px solid var(--primary);
+  padding: 0.7rem 1.5rem;
 }

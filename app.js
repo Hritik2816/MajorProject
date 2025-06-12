@@ -104,14 +104,17 @@ app.use("/", userRouter)
 
 //Error handle
 
-app.all("*", (req, res, next) => {
-  next(new ExpressError(404, "Page not found"))
-})
+app.all('*', (req, res, next) => {
+  const err = new Error("Page not found");
+  err.status = 404;
+  next(err);
+});
 
 
 app.use((err, req, res, next) => {
-  let { statusCode = 500, message = "Something went wrong" } = err;
-  res.status(statusCode).render("error.ejs", { statusCode, message });
+  if (!err.status) err.status = 500;
+  if (!err.message) err.message = "Something went wrong.";
+  res.status(err.status).render("error", { err });
 });
 
 
