@@ -44,13 +44,14 @@ module.exports.create = async (req, res, next) => {
 
   const newListing = new Listing(req.body.listing);
   newListing.owner = req.user._id
-  newListing.images = req.files.map(f => ({ url: f.path, filename: f.filename }));
+  newListing.image = { url, filename };
   newListing.geometry = response.body.features[0].geometry;
 
 
-  await newListing.save();
+  let saveListing = await newListing.save();
+  console.log(saveListing);
   req.flash("success", "New Listing Created")
-  res.redirect(`/listing/${newListing._id}`)
+  res.redirect("/listing")
 }
 
 module.exports.edit = async (req, res) => {
@@ -61,9 +62,8 @@ module.exports.edit = async (req, res) => {
 
 module.exports.update = async (req, res, next) => {
   const { id } = req.params;
-  const listing = await Listing.findByIdAndUpdate(id, req.body.listing);
-  const imgs = req.files.map(f => ({ url: f.path, filename: f.filename }));
-  listing.images.push(...imgs);
+  const listing = await Listing.findById(id);
+
   // Update fields
   listing.title = req.body.listing.title;
   listing.description = req.body.listing.description;

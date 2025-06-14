@@ -3,11 +3,6 @@ const Schema = mongoose.Schema;
 const Review = require('./review.js')
 const user = require('./users.js');
 
-const ImageSchema = new Schema({
-  url: String,
-  filename: String
-});
-
 const listingSchema = new Schema({
   title: {
     type: String,
@@ -17,9 +12,9 @@ const listingSchema = new Schema({
     type: String,
     required: true
   },
-  images: {
-    type: [ImageSchema],
-    default: []
+  image: {
+    filename: String,
+    url: String,
   },
   price: {
     type: Number,
