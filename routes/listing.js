@@ -11,8 +11,12 @@ const upload = multer({ storage }); // Use the properly configured storage
 
 router.route("/")
   .get(wrapAsync(listingController.index))
-  .post(isLoggedIn, upload.single("listing[image]"), validateListing, wrapAsync(listingController.create))
-
+  .post(
+    isLoggedIn,
+    upload.array('listing[images]', 6), // allow up to 6 images
+    validateListing,
+    wrapAsync(listingController.create)
+  );
 
 
 // new route
@@ -25,10 +29,15 @@ router.get('/:id/edit', isLoggedIn, isOwner, wrapAsync(listingController.edit));
 
 
 router.route('/:id')
-  .put(isLoggedIn, isOwner, upload.single("listing[image]"), validateListing, wrapAsync(listingController.update))
+  .put(
+    isLoggedIn,
+    isOwner,
+    upload.array('listing[images]', 6),
+    validateListing,
+    wrapAsync(listingController.update)
+  )
   .get(wrapAsync(listingController.show))
-  .delete(isLoggedIn, isOwner, wrapAsync(listingController.delete))
-
+  .delete(isLoggedIn, isOwner, wrapAsync(listingController.delete));
 
 
 // router.get('/', wrapAsync(listingController.index));

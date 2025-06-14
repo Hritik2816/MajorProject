@@ -464,3 +464,25 @@ select {
   border: 2px solid var(--primary);
   padding: 0.7rem 1.5rem;
 }
+
+.image-gallery {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.gallery-img {
+  width: 120px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 8px rgba(127, 255, 0, 0.10);
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.gallery-img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 24px rgba(127, 255, 0, 0.18);
+}
