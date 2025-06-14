@@ -50,11 +50,15 @@ module.exports.validateReview = (req, res, next) => {
 };
 
 module.exports.isReviewAuthor = async (req, res, next) => {
-  let { id, reviewId } = req.params;
-  let listing = await Review.findById(reviewId);
-  if (!res.locals.currUser || !Review.author.equals(res.locals.currUser._id)) {
-    req.flash("error", "you don't have permission to edit");
-    return res.redirect(`/listing/${id}`);
+  const { reviewId } = req.params;
+  const review = await Review.findById(reviewId);
+  if (!review || !review.author) {
+    req.flash('error', 'Review not found or missing author');
+    return res.redirect('back');
+  }
+  if (!res.locals.currUser || !review.author.equals(res.locals.currUser._id)) {
+    req.flash('error', 'You do not have permission to do that!');
+    return res.redirect('back');
   }
   next();
 };

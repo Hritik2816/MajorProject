@@ -98,7 +98,7 @@ app.use((req, res, next) => {
 // })
 
 app.use("/listing", listingRouter)
-app.use("/listing/:id/review", reviewRouter);
+app.use('/listing/:id/review', reviewRouter);
 app.use("/", userRouter)
 app.use('/uploads', express.static('uploads'));
 
