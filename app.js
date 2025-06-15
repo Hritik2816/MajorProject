@@ -112,12 +112,13 @@ app.all('*', (req, res, next) => {
 
 
 app.use((err, req, res, next) => {
-  if (!err.status) err.status = 500;
-  if (!err.message) err.message = "Something went wrong.";
-  res.status(err.status).render("error", { err });
+  const status = typeof err.status === "number" && err.status >= 400 && err.status < 600 ? err.status : 500;
+  const message = err.message || "Something went wrong.";
+  res.status(status).render("error", { err: { ...err, status, message } });
 });
 
 
-app.listen(8080, () => {
-  console.log('Server is running on port 8080');
-})
+const port = process.env.PORT || 8080;
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
